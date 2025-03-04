@@ -367,4 +367,4 @@ interface HomeProps {}
   // );
 // };
 
-export default Home;
+// export default Home;
