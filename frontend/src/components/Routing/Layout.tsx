@@ -5,30 +5,30 @@ import { Button } from "@mui/material";
 import "./Layout.css"
 
 const Layout = () => {
-    const [uuid, setUuid] = React.useState(null);
+    // const [uuid, setUuid] = React.useState(null);
 
-    useEffect(() => {
-        fetch('/api/accounts/cookies', {
-            method: 'GET',
-            credentials: 'include', // Include credentials
-        })
-        .then(response => response.json())
-        .then(data => {setUuid(data.uuid);})
-        .catch(error => console.error('Error:', error));
-        console.log(uuid);
-    }, [uuid, setUuid]);
+    // useEffect(() => {
+    //     fetch('/api/accounts/cookies', {
+    //         method: 'GET',
+    //         credentials: 'include', // Include credentials
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {setUuid(data.uuid);})
+    //     .catch(error => console.error('Error:', error));
+    //     console.log(uuid);
+    // }, [uuid, setUuid]);
 
-    const handleLogOut = async () => {
-        await fetch('/api/accounts/logout', {
-            method: 'POST',
-            credentials: 'include', // Include credentials
-        })
-        .then(response => response.json())
-        .then(data => {setUuid(null);})
-        .catch(error => console.error('Error:', error));
-        // refresh the page after logging out
-        window.location.reload();
-    }
+    // const handleLogOut = async () => {
+    //     await fetch('/api/accounts/logout', {
+    //         method: 'POST',
+    //         credentials: 'include', // Include credentials
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {setUuid(null);})
+    //     .catch(error => console.error('Error:', error));
+    //     // refresh the page after logging out
+    //     window.location.reload();
+    // }
 
   return (
     <div>
@@ -48,9 +48,9 @@ const Layout = () => {
                     <li className="nav-item">
                         <Link to="/preferences">My Preferences</Link>
                     </li>
-                    {uuid ? <button className="btn btn-success my-2 my-sm-0" onClick={handleLogOut}>Logout</button> : <li className="nav-item">
+                    {/* {uuid ? <button className="btn btn-success my-2 my-sm-0" onClick={handleLogOut}>Logout</button> : <li className="nav-item">
                         <Link to="/login">Login</Link>
-                    </li>}
+                    </li>} */}
                 </ul>
             </div>
         </nav>
