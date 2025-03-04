@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect, useCallback } from 'react';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import PlantForm from '../Form/PlantForm.tsx';
+// import PlantForm from '../Form/PlantForm.tsx';
 //import test from 'node:test';
 
 // const BACKEND_URL = "goldfish-app-ah94n.ondigitalocean.app";
@@ -265,7 +265,7 @@ interface HomeProps {}
 //     closeModal();
 //   };
 
-  return (
+  // return (
     <div className="container">Hi</div>
   //     <div className="d-flex justify-content-between align-items-center">
   //       <h1 className="mt-4 fw-bold">{friendName} Plants</h1>
@@ -364,7 +364,7 @@ interface HomeProps {}
   //   />
 
     // </div>
-  );
-};
+  // );
+// };
 
 export default Home;
