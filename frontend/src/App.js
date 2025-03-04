@@ -14,46 +14,46 @@ import LoginPage from './components/LoginPage/LoginPage.tsx';
 function App() {
 
 	// connect to web socket
-	useEffect(() => {
-        const ws = new WebSocket('ws://localhost:4000/');
+	// useEffect(() => {
+    //     const ws = new WebSocket('ws://localhost:4000/');
 
-        ws.onopen = () => {
-            console.log('Connected to WebSocket server');
-        };
+    //     ws.onopen = () => {
+    //         console.log('Connected to WebSocket server');
+    //     };
 
-        ws.onmessage = (event) => {
-            const message = JSON.parse(event.data);
-            console.log("WebSocket Message:", message);
-            if (message.type === 'notification') {
-                displayNotification(message.message, 'info');
-            }
-        };
+    //     ws.onmessage = (event) => {
+    //         const message = JSON.parse(event.data);
+    //         console.log("WebSocket Message:", message);
+    //         if (message.type === 'notification') {
+    //             displayNotification(message.message, 'info');
+    //         }
+    //     };
 
-        ws.onerror = (error) => {
-            console.error('WebSocket error:', error);
-        };
+    //     ws.onerror = (error) => {
+    //         console.error('WebSocket error:', error);
+    //     };
 
-        ws.onclose = () => {
-            console.log('Disconnected from WebSocket server');
-        };
+    //     ws.onclose = () => {
+    //         console.log('Disconnected from WebSocket server');
+    //     };
 
-        return () => {
-            ws.close();
-        };
-	}, []);
+    //     return () => {
+    //         ws.close();
+    //     };
+	// }, []);
 
-	const displayNotification = (message, type) => {
-		toast[type](message, { position: 'top-center' });
-	};
+	// const displayNotification = (message, type) => {
+	// 	toast[type](message, { position: 'top-center' });
+	// };
 		
 	return (
 		<BrowserRouter>
 			<Routes>
 				<Route path="/" element={<Layout />}>
 					<Route index element={<Home />} />
-					<Route path="/friends" element={<Friends />} />
+					{/* <Route path="/friends" element={<Friends />} />
 					<Route path="/history" element={<History />} />
-					<Route path="/preferences" element={<Preferences />} />
+					<Route path="/preferences" element={<Preferences />} /> */}
 					<Route path="/login" element={<LoginPage />} />
 					<Route path="*" element={<Home />} />
 				</Route>

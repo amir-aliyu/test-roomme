@@ -40,13 +40,13 @@ const Layout = () => {
                 </form>
                 <ul className="navbar-nav mr-auto">
                     <li className="nav-item active">
-                        <Link to="/dashboard">Dashboard</Link>
+                        {/* <Link to="/dashboard">Dashboard</Link> */}
                     </li>
                     <li className="nav-item">
-                        <Link to="/friends">Friends</Link>
+                        {/* <Link to="/friends">Friends</Link> */}
                     </li>
                     <li className="nav-item">
-                        <Link to="/preferences">My Preferences</Link>
+                        {/* <Link to="/preferences">My Preferences</Link> */}
                     </li>
                     {/* {uuid ? <button className="btn btn-success my-2 my-sm-0" onClick={handleLogOut}>Logout</button> : <li className="nav-item">
                         <Link to="/login">Login</Link>
