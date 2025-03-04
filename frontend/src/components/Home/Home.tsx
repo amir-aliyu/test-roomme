@@ -1,7 +1,6 @@
 import React, { FC, useState, useEffect, useCallback } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import PlantForm from '../Form/PlantForm.tsx';
 //import test from 'node:test';
 
 const BACKEND_URL = "goldfish-app-ah94n.ondigitalocean.app";
@@ -21,71 +20,6 @@ const Home: FC<HomeProps> = () => {
     toast[type](message, {position: 'bottom-right'});
   };
 
-  const fetchPlants = useCallback(async () => {
-    console.log('fetching plants')
-    try {
-      var response = await fetch(`/api/plants/list/${uuid}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      // If the page is read only, try to fetch the plants for readOnlyUUID
-      if (isReadOnly) {
-        response = await fetch(`/api/plants/list/${readOnlyUUID}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-      }
-      const data = await response.json();
-      if (response.ok) {
-        console.log('plants');
-        console.log(data);
-        setPlants(data);
-      } else {
-        throw new Error(data.message || 'Error fetching plants');
-      }
-    } catch (error: any) {
-      // I commented this out because it ran every time the page loaded and I couldn't figure out a way to make it wait
-      // displayNotification('Error fetching plants', 'error');
-    }
-  }, [uuid]);
-
-  useEffect(() => {
-    getFriendName();
-    fetch(`/api/accounts/cookies`, {
-      method: 'GET',
-      credentials: 'include', // Include credentials
-    })
-    .then(response => response.json())
-    .then(data => {setUuid(data.uuid);})
-    .catch(error => console.error('Error:', error));
-  }, [uuid]);
-
-  useEffect(() => {
-    // Credentials are included by default in fetch requests to the same origin
-    fetch(`/api/accounts/cookies`, {
-      method: 'GET',
-      credentials: 'include', // Include credentials
-    })
-    .then(response => response.json())
-    .then(data => {setUuid(data.uuid);console.log(data.uuid);})
-    .catch(error => console.error('Error:', error));
-    fetchPlants();
-  }, [fetchPlants]);
-
-  useEffect(() => {
-    const fetchFriendName = async () => {
-      const name = await getFriendName();
-      setFriendName(name);
-    };
-  
-    if (isReadOnly) {
-      fetchFriendName();
-    }
-  }, [readOnlyUUID]); // Depend on readOnlyUUID so it re-runs when readOnlyUUID changes
 
   // Function to convert an image to base64 encoding
   // (This could be moved to the server side so we can use jimp to resize the image before converting it to base64)
@@ -107,22 +41,6 @@ const Home: FC<HomeProps> = () => {
       // Read the image file as a data URL
       reader.readAsDataURL(image);
     });
-  };
-
-  // Function to get name of readOnlyUUID
-  const getFriendName = async () => {
-    try {
-      const response = await fetch(`/api/accounts/${readOnlyUUID}`);
-      const data = await response.json();
-      if (response.ok) {
-        return data.name+"\'s";
-      } else {
-        return "My";
-        // throw new Error(data.message || 'Failed to fetch friend details');
-      }
-    } catch (error: any) {
-      return "My";
-    }
   };
 
   // Function to handle file selection
@@ -147,7 +65,6 @@ const Home: FC<HomeProps> = () => {
       });
       const data = await response.json();
       if (response.ok) {
-        fetchPlants(); // Refresh the list
         displayNotification('Plant deleted successfully!', 'success');
       } else {
         throw new Error(data.message || 'Failed to delete plant');
@@ -164,38 +81,6 @@ const Home: FC<HomeProps> = () => {
   };
 
   // function to update the watering streak
-  const updateStreak = async (plantId: string) => {
-    try {
-      // Fetch the current plant data
-      const response = await fetch(`/api/plants/${plantId}`);
-      const data = await response.json();
-      
-      if (!response.ok) {
-        throw new Error(data.message || 'Failed to fetch plant details');
-      }
-      
-      // Increment the streak by 1
-      const newStreak = data.streak + 1;
-      
-      // Update the streak via PATCH request
-      const updateResponse = await fetch(`/api/plants/${plantId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ streak: newStreak }),
-      });
-      
-      if (updateResponse.ok) {
-        displayNotification('Streak updated successfully!', 'success');
-        fetchPlants(); // Refresh the plant list
-      } else {
-        throw new Error('Failed to update streak');
-      }
-    } catch (error: any) {
-      displayNotification('Error updating streak', 'error');
-    }
-  };
 
   // Function to open modal for editing an existing plant
 const handleEditPlantClick = async (plantId: string) => {
@@ -219,51 +104,6 @@ const handleEditPlantClick = async (plantId: string) => {
   };
 
   // Function to submit the form data
-  const handleSubmit = async (name: string, type: string, wateringTime: string, image: string, owner: string) => {
-    if (editingPlant) {
-      // call the API to update the plant
-    try {
-      const response = await fetch(`/api/plants/${editingPlant._id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, type, wateringTime, image, owner:uuid }),
-      });
-      const data = await response.json();
-      if (response.ok) {
-        displayNotification('Plant updated successfully!', 'success');
-        fetchPlants(); // Refresh the list
-      } else {
-        throw new Error(data.message || 'Failed to update plant');
-      }
-    } catch (error: any) {
-      displayNotification('Error updating plant', 'error');
-    }
-    } else {
-       // call api to add new plant
-      try {
-        const response = await fetch('/api/plants/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ name, type, wateringTime, image, owner:uuid }),
-        });
-        const data = await response.json();
-        if (response.ok) {
-          displayNotification('Plant added successfully!', 'success');
-          fetchPlants(); // Refresh the list
-          closeModal(); // Close the modal
-        } else {
-          throw new Error(data.message || 'Failed to add plant');
-        }
-      } catch (error: any) {
-        displayNotification('Error adding plant', 'error');
-      }
-    }
-    closeModal();
-  };
 
   return (
     <div className="container">
