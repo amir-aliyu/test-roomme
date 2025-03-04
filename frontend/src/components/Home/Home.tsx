@@ -279,7 +279,7 @@ const handleEditPlantClick = async (plantId: string) => {
     <div className="card mt-4 shadow">
       <div className="card-header fw-bold d-flex align-items-center bg-primary text-white">
         <p className="m-0 fs-3">Plant List</p>
-        {!uuid && 
+        {/* {!uuid &&  */}
           <button
             className="btn btn-error"
             onClick={() => {
@@ -288,8 +288,8 @@ const handleEditPlantClick = async (plantId: string) => {
           >
             You aren't logged in! Click here to log in or register.
           </button>
-        }
-        {!isReadOnly && uuid && <button onClick={handleAddPlantClick} className="btn btn-light ms-auto text-dark">Add Plant</button>}
+        {/* } */}
+        {/* {!isReadOnly && uuid && <button onClick={handleAddPlantClick} className="btn btn-light ms-auto text-dark">Add Plant</button>} */}
       </div>
       <div className="card-body" style={{ backgroundColor: 'rgba(110, 187, 164, 0.4)' }}>
         <ul id="plantsList" className="list-group">
@@ -305,63 +305,12 @@ const handleEditPlantClick = async (plantId: string) => {
               {/* <div className="col fw-bold fs-5 text-end">Actions</div> Right-aligned header */}
             </div>
           </li>
-          {/* Plant Items */}
-          {plants.map((plant: any) => (
-            <li key={plant._id} className="list-group-item">
-              <div className="row">
-                <div className="col">
-                  {/* NOTE: The base64 string should start with a / */}
-                  {plant.image ? 
-    <img src={`data:image/png;base64, ${plant.image}`} className={"me-2"} style={{ width: '50px', height: '50px' }} /> 
-    : null}
-                  {plant.name}
-                </div>
-                <div className="col">
-                  {plant.type}
-                </div>
-                <div className="col">
-                  {plant.wateringTime}
-                </div>
-                <div className="col">
-                  {plant.streak}     
-                  {!isReadOnly && <button
-                    className="btn btn-light btn-sm"
-                    style={{ width: '75px' }}
-                    onClick={() => updateStreak(plant._id)}
-                  >
-                    Watered
-                  </button>}
-                </div>
-                <div className="col text-end">
-                  {!isReadOnly && <button
-                    className="btn btn-info btn-sm me-2"
-                    style={{ width: '75px' }}
-                    onClick={() => handleEditPlantClick(plant._id)}
-                  >
-                    Edit
-                  </button>}
-                  {!isReadOnly && <button
-                    className="btn btn-danger btn-sm"
-                    style={{ width: '75px' }}
-                    onClick={() => deletePlant(plant._id)}
-                  >
-                    Delete
-                  </button>}
-                </div>
-              </div>
-            </li>
-          ))}
+          ))
         </ul>
       </div>
     </div>
 
     {/* Plant Form Modal */}
-    {/* <PlantForm
-      formIsOpen={isModalOpen}
-      onClose={closeModal}
-      onSubmit={handleSubmit}
-      plantData={editingPlant ? { name: editingPlant.name, type: editingPlant.type, wateringTime: editingPlant.wateringTime, image: editingPlant.image, owner: uuid } : undefined}
-    /> */}
 
     </div>
   );
