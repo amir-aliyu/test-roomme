@@ -5,8 +5,8 @@ const HOMEPAGE = 'https://test-roomme-fd000e69abe5.herokuapp.com/'
 const VALIDATE = 'https://login.case.edu/cas/serviceValidate?ticket='
 
 const App: React.FC = () => {
-  const [user, setUser] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  // const [user, setUser] = useState<string | null>(null);
+  // const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     // Check if CAS ticket is in the URL
