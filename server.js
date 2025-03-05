@@ -14,10 +14,11 @@ app.use(express.static(path.join(__dirname, "test-roomme-app", "dist")));
 
 // Proxy CAS ticket validation request
 app.get("/api/cas-validate", async (req, res) => {
-  const { ticket, service } = req.query;
+  const { ticket } = req.query;
   if (!ticket || !service) {
     return res.status(400).json({ error: "Missing ticket or service" });
   }
+  const service = "https://test-roomme-fd000e69abe5.herokuapp.com/";
 
   try {
     const casResponse = await axios.get("https://login.case.edu/cas/serviceValidate", {
