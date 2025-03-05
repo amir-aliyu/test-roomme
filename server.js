@@ -40,6 +40,8 @@ app.get("/api/cas-validate", async (req, res) => {
 
   // If it's not HTML, attempt to parse the response as XML
   const json = await parseStringPromise(casResponse.data);
+
+  console.log("CAS Response JSON:", JSON.stringify(json, null, 2));
     
     // Extract authentication result
     if (json["cas:serviceResponse"]["cas:authenticationSuccess"]) {
