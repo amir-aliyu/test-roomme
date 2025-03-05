@@ -14,7 +14,7 @@ const App: React.FC = () => {
       console.log("CAS Ticket received:", ticket);
 
       // Query the CAS server
-    window.location.href = `${VALIDATE}${ticket}&amp;service=${HOMEPAGE}`;
+      window.location.href = `${VALIDATE}${ticket}&service=${HOMEPAGE}`;
     }
   }, []);   
 
