@@ -25,8 +25,20 @@ app.get("/api/cas-validate", async (req, res) => {
       params: { ticket, service },
     });
 
-    // Convert XML response to JSON
-    const json = await parseStringPromise(casResponse.data);
+    // Check if the response is HTML (this indicates a login page or error)
+  if (casResponse.data.includes("<html")) {
+    // Log the HTML response for debugging purposes
+    console.error("CAS response is an HTML error or login page.");
+    
+    // Redirect to the CAS login page
+    const loginUrl = `https://login.case.edu/cas/login?service=${service}`;
+    res.redirect(loginUrl);  // Redirect to the CAS login page
+
+    return; // Exit after redirect
+  }
+
+  // If it's not HTML, attempt to parse the response as XML
+  const json = await parseStringPromise(casResponse.data);
     
     // Extract authentication result
     if (json["cas:serviceResponse"]["cas:authenticationSuccess"]) {
