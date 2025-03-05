@@ -38,7 +38,7 @@ const App: React.FC = () => {
         // })
         .catch((error) => {
           console.error("Error during CAS validation:", error);
-          setError("An error occurred while validating the ticket.");
+          // setError("An error occurred while validating the ticket.");
         });
     }
 
