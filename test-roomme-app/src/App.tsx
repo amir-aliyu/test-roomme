@@ -1,17 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
+
+const LOGIN_REDIRECT = 'https://login.case.edu/cas/login'
+const HOMEPAGE = 'https://test-roomme-fd000e69abe5.herokuapp.com/'
 
 const App: React.FC = () => {
-  const handleClick = () => {
-    console.log("Button clicked!");
+  useEffect(() => {
+    // Check if CAS ticket is in the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const ticket = urlParams.get("ticket");
+
+    if (ticket) {
+      console.log("CAS Ticket received:", ticket);
+      // You can now use the ticket for authentication
+    }
+  }, []);   
+
+  const handleLogin = () => {
+    // Redirect to CAS login with the service URL
+    window.location.href = `${LOGIN_REDIRECT}?service=${encodeURIComponent(HOMEPAGE)}`;
   };
 
   return (
     <div className="flex justify-center items-center h-screen w-screen">
-      <button 
-        onClick={handleClick} 
-        className="px-6 py-3 text-white bg-blue-500 rounded-lg shadow-md hover:bg-blue-600 transition"
-      >
-        Click Me
+      <button onClick={handleLogin}>
+        Login
       </button>
     </div>
   );
