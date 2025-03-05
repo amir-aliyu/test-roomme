@@ -14,8 +14,17 @@ const App: React.FC = () => {
   
     if (ticket) {
       fetch(`/api/cas-validate?ticket=${ticket}&service=${window.location.origin}`)
-        .then(response => response.json())
-        .then(data => {
+      .then(response => {
+        // Check if the response is HTML (e.g., a login page)
+        if (response.headers.get("content-type")?.includes("text/html")) {
+          // If it's HTML, it means the CAS server is redirecting us to the login page
+          window.location.href = "https://login.case.edu/cas/login?service=" + window.location.origin;
+          return;  // Exit the function, no need to process further
+        }
+
+        // If it's JSON, continue processing the response
+        return response.json();
+      }).then(data => {
           console.log("Response JSON:", data);  // Logs the actual JSON data
           if (data.authenticated) {
             console.log("User authenticated:", data.user);
