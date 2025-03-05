@@ -16,6 +16,7 @@ const App: React.FC = () => {
       fetch(`/api/cas-validate?ticket=${ticket}&service=${window.location.origin}`)
         .then(response => response.json())
         .then(data => {
+          console.log("Response JSON:", data);  // Logs the actual JSON data
           if (data.authenticated) {
             console.log("User authenticated:", data.user);
             // Store user info in state
