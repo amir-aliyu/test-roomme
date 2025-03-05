@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 
 const LOGIN_REDIRECT = 'https://login.case.edu/cas/login'
 const HOMEPAGE = 'https://test-roomme-fd000e69abe5.herokuapp.com/'
+const VALIDATE = 'https://login.case.edu/cas/serviceValidate?ticket='
 
 const App: React.FC = () => {
   useEffect(() => {
@@ -11,7 +12,9 @@ const App: React.FC = () => {
 
     if (ticket) {
       console.log("CAS Ticket received:", ticket);
-      // You can now use the ticket for authentication
+
+      // Query the CAS server
+    window.location.href = `${VALIDATE}${ticket}&amp;service=${HOMEPAGE}`;
     }
   }, []);   
 
