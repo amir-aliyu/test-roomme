@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 const LOGIN_REDIRECT = 'https://login.case.edu/cas/login'
 const HOMEPAGE = 'https://test-roomme-fd000e69abe5.herokuapp.com/'
