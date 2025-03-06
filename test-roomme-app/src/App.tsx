@@ -25,14 +25,14 @@ const App: React.FC = () => {
         // If it's JSON, continue processing the response
         return response.json();
       }).then(data => {
-          console.log("Response JSON:", data);  // Logs the actual JSON data
+          // console.log("Response JSON:", data);  // Logs the actual JSON data
           if (data.authenticated) {
             // Remove 'ticket' from the URL
             const newUrl = window.location.origin + window.location.pathname;
             window.history.replaceState({}, document.title, newUrl);
-            console.log("User authenticated:", data.caseID); // Store user info in state
+            // console.log("User authenticated:", data.caseID); // Store user info in state
             // Show the message
-            alert("Welcome, " + data.firstName + data.lastName + "!");
+            alert("Welcome, " + data.firstName + " " + data.lastName + "!");
           } else {
             console.error("CAS authentication failed:", data.error);
           }

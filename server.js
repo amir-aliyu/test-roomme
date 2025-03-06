@@ -36,7 +36,7 @@ app.get("/api/cas-validate", async (req, res) => {
 
     return; // Exit after redirect
   }
-  console.log("the data is: " + casResponse.data)
+  // console.log("the data is: " + casResponse.data)
 
   // If it's not HTML, attempt to parse the response as XML
   const json = await parseStringPromise(casResponse.data);
