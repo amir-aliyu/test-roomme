@@ -27,6 +27,7 @@ const App: React.FC = () => {
       }).then(data => {
           console.log("Response JSON:", data);  // Logs the actual JSON data
           if (data.authenticated) {
+            window.location.href = HOMEPAGE
             console.log("User authenticated:", data.caseID); // Store user info in state
             // Show the message
             alert("Welcome, " + data.firstName + data.lastName + "!");
