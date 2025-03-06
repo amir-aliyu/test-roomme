@@ -46,7 +46,7 @@ app.get("/api/cas-validate", async (req, res) => {
     // Extract authentication result
     if (json["cas:serviceResponse"]["cas:authenticationSuccess"]) {
       const caseID = json["cas:serviceResponse"]["cas:authenticationSuccess"][0]["cas:user"][0];
-      const firstName = json["cas:serviceResponse"]["cas:authenticationSuccess"][0]["cas:attributes"][0]["cas:givenname"][0];
+      const firstName = json["cas:serviceResponse"]["cas:authenticationSuccess"][0]["cas:attributes"][0]["cas:givenName"][0];
       const lastName = json["cas:serviceResponse"]["cas:authenticationSuccess"][0]["cas:attributes"][0]["cas:sn"][0];
       res.json({ authenticated: true, caseID, firstName, lastName });
     } else {
