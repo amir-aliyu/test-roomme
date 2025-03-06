@@ -31,6 +31,7 @@ app.get("/api/cas-validate", async (req, res) => {
     console.error("CAS response is an HTML error or login page.");
     
     // Redirect to the CAS login page
+    service = "https://test-roomme-fd000e69abe5.herokuapp.com/";
     const loginUrl = `https://login.case.edu/cas/login?service=${service}`;
     res.redirect(loginUrl);  // Redirect to the CAS login page
 
@@ -46,7 +47,7 @@ app.get("/api/cas-validate", async (req, res) => {
     // Extract authentication result
     if (json["cas:serviceResponse"]["cas:authenticationSuccess"]) {
       const caseID = json["cas:serviceResponse"]["cas:authenticationSuccess"][0]["cas:user"][0];
-      const firstName = json["cas:serviceResponse"]["cas:authenticationSuccess"][0]["cas:attributes"][0]["cas:givenname"][0];
+      const firstName = json["cas:serviceResponse"]["cas:authenticationSuccess"][0]["cas:attributes"][0]["cas:givenName"][0];
       const lastName = json["cas:serviceResponse"]["cas:authenticationSuccess"][0]["cas:attributes"][0]["cas:sn"][0];
       res.json({ authenticated: true, caseID, firstName, lastName });
     } else {
