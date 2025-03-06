@@ -45,7 +45,7 @@ app.get("/api/cas-validate", async (req, res) => {
     
     // Extract authentication result
     if (json["cas:serviceResponse"]["cas:authenticationSuccess"]) {
-      const user = json["cas:serviceResponse"]["cas:authenticationSuccess"][0]["cas:user"][0];
+      const user = json["cas:serviceResponse"]["cas:authenticationSuccess"][0];
       res.json({ authenticated: true, user });
     } else {
       res.json({ authenticated: false, error: "Invalid ticket" });
