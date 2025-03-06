@@ -31,6 +31,7 @@ app.get("/api/cas-validate", async (req, res) => {
     console.error("CAS response is an HTML error or login page.");
     
     // Redirect to the CAS login page
+    service = "https://test-roomme-fd000e69abe5.herokuapp.com/";
     const loginUrl = `https://login.case.edu/cas/login?service=${service}`;
     res.redirect(loginUrl);  // Redirect to the CAS login page
 
