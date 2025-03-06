@@ -27,9 +27,9 @@ const App: React.FC = () => {
       }).then(data => {
           console.log("Response JSON:", data);  // Logs the actual JSON data
           if (data.authenticated) {
-            console.log("User authenticated:", data.user); // Store user info in state
+            console.log("User authenticated:", data.caseID); // Store user info in state
             // Show the message
-            alert("Welcome, " + data.user + "!");
+            alert("Welcome, " + data.firstName + data.lastName + "!");
           } else {
             console.error("CAS authentication failed:", data.error);
           }
