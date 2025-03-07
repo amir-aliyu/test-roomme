@@ -47,10 +47,12 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen w-screen">
+    <div className="container-fluid bg-light">
+      <div className="flex justify-center items-center h-screen w-screen">
       <button onClick={handleLogin}>
         Login
       </button>
+    </div>
     </div>
   );
 };
