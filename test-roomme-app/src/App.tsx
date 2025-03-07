@@ -48,11 +48,9 @@ const App: React.FC = () => {
 
   return (
       <div className="flex justify-center items-center h-screen w-screen">
-        <h1> HELLO
-          <button onClick={handleLogin}>
-          Login
-        </button>
-          </h1>
+      <button onClick={handleLogin}>
+        Login
+      </button>
     </div>
   );
 };
